@@ -9,6 +9,48 @@
 </head>
 
 <body>
+
+    <script>
+        // Form Validation
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const name = document.querySelector('input[name="name"]').value.trim();
+            const email = document.querySelector('input[name="email"]').value.trim();
+            const message = document.querySelector('textarea[name="message"]').value.trim();
+    
+            if (!name || !email || !message) {
+                alert("All fields are required!");
+                return;
+            }
+    
+            if (!validateEmail(email)) {
+                alert("Please enter a valid email address!");
+                return;
+            }
+    
+            alert("Thank you for your message, " + name + "! We will get back to you soon.");
+            this.reset();  // Clear form after submission
+        });
+    
+        // Email Validation Function
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+    
+        // Social Media Link Confirmation
+        document.querySelectorAll('.social-icon').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const confirmed = confirm("You are about to leave the site. Continue?");
+                if (!confirmed) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+    
+
     <style>
         body, html {
     margin: 0;
