@@ -9,6 +9,9 @@
     href="image/bmw.jpg">
 </head>
 <style>
+
+
+
     body, html {
         margin: 0;
         padding: 0;
@@ -196,6 +199,42 @@
     }
 </style>
 <body>
+
+    <script>
+        // Smooth Scrolling to Team Section
+        document.querySelector('.blom').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('#team').scrollIntoView({ behavior: 'smooth' });
+        });
+    
+        // Image Zoom Effect on Team Members
+        document.querySelectorAll('.team-card img').forEach(img => {
+            img.addEventListener('mouseover', () => {
+                img.style.transform = 'scale(1.1)';
+                img.style.transition = 'transform 0.3s ease';
+            });
+            img.addEventListener('mouseout', () => {
+                img.style.transform = 'scale(1)';
+            });
+        });
+    
+        // Dynamic Team Member Info Update
+        document.querySelectorAll('.team-card').forEach((card, index) => {
+            card.addEventListener('click', () => {
+                const teamData = [
+                    { name: "John Doe", role: "CEO", bio: "John leads our company with vision and innovation." },
+                    { name: "Jane Smith", role: "CTO", bio: "Jane is the technical genius driving our digital solutions." }
+                ];
+    
+                card.querySelector('h3').innerText = teamData[index].name;
+                card.querySelector('p').innerText = `${teamData[index].role} - ${teamData[index].bio}`;
+                alert(`You clicked on ${teamData[index].name}`);
+            });
+        });
+    </script>
+    
+
+
     <header class="header">
         <div class="overlay">
             <nav class="navbar">
