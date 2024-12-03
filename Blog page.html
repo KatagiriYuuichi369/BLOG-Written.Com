@@ -8,6 +8,82 @@
     <link rel="websiteicon" href="image/bmw.jpg">
 </head>
 
+<script>
+    // Smooth Scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    // Back to Top Button
+    const backToTopBtn = document.createElement('button');
+    backToTopBtn.innerText = '↑';
+    backToTopBtn.style.position = 'fixed';
+    backToTopBtn.style.bottom = '20px';
+    backToTopBtn.style.right = '20px';
+    backToTopBtn.style.padding = '10px';
+    backToTopBtn.style.border = 'none';
+    backToTopBtn.style.borderRadius = '50%';
+    backToTopBtn.style.backgroundColor = 'red';
+    backToTopBtn.style.color = 'white';
+    backToTopBtn.style.cursor = 'pointer';
+    backToTopBtn.style.display = 'none';
+    document.body.appendChild(backToTopBtn);
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Blog Upload Preview
+    const uploadForm = document.getElementById('uploadForm');
+    uploadForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent the actual form submission
+
+        const title = document.getElementById('blogTitle').value;
+        const imageFile = document.getElementById('blogImage').files[0];
+        const content = document.getElementById('blogContent').value;
+
+        if (title && imageFile && content) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const blogSection = document.getElementById('blogs');
+
+                // Create a new blog card
+                const blogCard = document.createElement('div');
+                blogCard.classList.add('blog-card');
+
+                blogCard.innerHTML = `
+                    <img src="${e.target.result}" alt="${title}">
+                    <h3>${title}</h3>
+                    <p>${content.substring(0, 100)}...</p>
+                    <a href="index.html" class="btn">Read More</a>
+                `;
+                blogSection.appendChild(blogCard);
+
+                // Reset the form
+                uploadForm.reset();
+                alert('Blog uploaded successfully!');
+            };
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert('Please fill in all fields and select an image.');
+        }
+    });
+</script>
+
+
 <body>
     <style>
         * {
